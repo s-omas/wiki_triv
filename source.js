@@ -70,7 +70,7 @@ function stripPunctuation(str) {
 function checkAnswer() {
     console.log(answer)
     var userAnswer = document.getElementById("answer").value;
-    if (answer == userAnswer){
+    if (answer.toLowerCase() == userAnswer.toLowerCase()){
         document.getElementById('answer').value = '';
         document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) + 1
         fetchRandomArticle()
