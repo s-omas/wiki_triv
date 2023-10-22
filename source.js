@@ -37,7 +37,7 @@ function fetchChosenArticle(title) {
             console.log(title_text, extract_text);
             displayQuestion(title_text, extract_text)
         })
-        .catch(error => console.error('Error fetching random article:', error));
+        .catch(error => fetchRandomArticle());
 }
 
 function displayQuestion(title_text, extract_text) {
