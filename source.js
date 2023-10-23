@@ -1,8 +1,10 @@
 var currentScore;
+var currentMove = 0;
 document.addEventListener("DOMContentLoaded", function() {
     fetchRandomArticle();
     console.log(result);
     currentScore = 0;
+    currentMove = 0;
 });
 var answer;
 
@@ -75,11 +77,17 @@ function checkAnswer() {
         document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) + 1
         fetchRandomArticle()
     } else {
-        alert("incorrect")
         document.getElementById('answer').value = ''
         document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) - 1
-        fetchChosenArticle(answer)
+        //fetchChosenArticle(answer)
+        fetchRandomArticle()
     }
+    if (currentMove == 5){
+        alert("Final score: " + document.getElementById('score').textContent)
+    } else {
+        currentMove++;
+    }
+
 }
 
 function replaceNthWordWithUnderscore(sentence, n) {
