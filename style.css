@@ -75,6 +75,11 @@ input {
     background-color: #fff; /* Background color of the gap */
   }
   
+/* #image_holder {
+    max-height: 150px;
+} */
+
+
   @keyframes shake {
     0% { transform: translateX(0); }
     20% { transform: translateX(-10px); }
