@@ -38,3 +38,48 @@ input {
     padding: 8px;
     margin-right: 10px;
 }
+/* Container styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+    position: fixed; /* Fixed positioning to stay at the top */
+    top: 0; /* Align to the top */
+    width: 100%; /* Occupy the full width of the viewport */
+    padding: 15px; /* Add some padding for spacing */
+    z-index: 999; /* Ensure it appears above other content */
+    text-decoration: none;
+  }
+  
+  /* Book icon styling */
+  .book-icon {
+    width: 60px; /* Increase the size accordingly */
+    height: 60px;
+    background-color: #3498db; /* Your chosen color */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    margin-right: 15px; /* Space between the book icon and text */
+  }
+  
+  /* Text styling */
+  .logo-text {
+    font-size: 30px; /* Increase the size accordingly */
+    font-weight: bold;
+    color: #333; /* Your chosen text color */
+  }
+  
+  /* Gap/hole styling */
+  .gap {
+    width: 15px; /* Increase the size accordingly */
+    height: 60px; /* Match the book icon height */
+    margin: 0 8px; /* Space between the book icon and gap */
+    background-color: #fff; /* Background color of the gap */
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+  }

@@ -78,12 +78,17 @@ function checkAnswer() {
         fetchRandomArticle()
     } else {
         document.getElementById('answer').value = ''
-        document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) - 1
+        //document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) - 1
         //fetchChosenArticle(answer)
-        fetchRandomArticle()
+        var q_holder = document.getElementById("question")
+        shakeElement(q_holder)
+        setTimeout(() => {
+            fetchRandomArticle()
+          }, 500);
     }
     if (currentMove == 5){
         alert("Final score: " + document.getElementById('score').textContent)
+        location.reload()
     } else {
         currentMove++;
     }
@@ -106,3 +111,13 @@ function replaceNthWordWithUnderscore(sentence, n) {
 
     return modifiedSentence;
 }
+
+function shakeElement(element) {
+    element.style.animation = 'shake 0.5s';
+    
+    // Remove the animation after it's completed
+    setTimeout(() => {
+      element.style.animation = '';
+    }, 500);
+  }
+  
