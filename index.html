@@ -12,6 +12,7 @@
         <span class="logo-text">Holes<span class="gap"></span></span>
     </a>
     <div class="container flex">
+        <div id="results-container"></div>
         <div id="trivia-container">
             <h2><p id="title"></p></h2>
             <div id="image_holder"></div>
@@ -19,8 +20,9 @@
             <h1><p id="correct"></p></h1>
             <!-- <input type="text" id="answer" placeholder="What word is missing?"> -->
             <button onclick="checkAnswer()">Submit Answer</button>
+            <h3>Current score: <div id="score">0</div></h3>
         </div>
-        <h3>Current score: <div id="score">0</div></h3>
+        
     </div>
     <script src="source.js"></script>
 </body>

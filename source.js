@@ -5,8 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(result);
     currentScore = 0;
     currentMove = 0;
+    
 });
 var answer;
+var pastAnswers = [];
+var successHistory = [];
 
 function fetchRandomArticle() {
     // Use cors-anywhere to bypass CORS restriction.
@@ -76,15 +79,22 @@ function stripPunctuation(str) {
 function checkAnswer() {
     console.log(answer)
     var userAnswer = document.getElementById("answer").value;
+
+    pastAnswers.push(answer);
+    successHistory.push(answer.toLowerCase() == userAnswer.toLowerCase());
+
     if (answer.toLowerCase() == userAnswer.toLowerCase()){
         document.getElementById('answer').value = '';
         document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) + 1
         document.getElementById("image_holder").innerHTML = '';
-        fetchRandomArticle()
-        setTimeout(() => {
-            pulseElementOnce(document.getElementById('score'))
-          }, 750);
-        
+        if (currentMove < 4){
+            fetchRandomArticle()
+            currentMove++
+        } else {
+            res = displayGameResults();
+            document.getElementById("trivia-container").style.display = 'none';
+            document.getElementById("results-container").appendChild(res);
+        }
     } else {
         document.getElementById('answer').value = ''
         //document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) - 1
@@ -93,18 +103,18 @@ function checkAnswer() {
         shakeElement(q_holder)
         document.getElementById('correct').textContent = "Correct answer: " + answer;
         setTimeout(() => {
-            document.getElementById("image_holder").innerHTML = '';
-            document.getElementById('correct').textContent = "";
-            fetchRandomArticle()
+            if (currentMove < 4){
+                document.getElementById("image_holder").innerHTML = '';
+                document.getElementById('correct').textContent = "";
+                fetchRandomArticle()  
+                currentMove++
+            } else {
+                res = displayGameResults();
+                document.getElementById("trivia-container").style.display = 'none';
+                document.getElementById("results-container").appendChild(res);
+            }
           }, 750);
     }
-    if (currentMove == 5){
-        alert("Final score: " + document.getElementById('score').textContent)
-        location.reload()
-    } else {
-        currentMove++;
-    }
-
 }
 
 function replaceNthWordWithUnderscore(sentence, n) {
@@ -116,7 +126,7 @@ function replaceNthWordWithUnderscore(sentence, n) {
     }
 
     // Replace the nth word with an underscore
-    words[n - 1] = '<input type="text" id="answer" placeholder="What word is missing?">';
+    words[n - 1] = '<input onkeydown="checkEnter(event)" type="text" id="answer" placeholder="What word is missing?">';
 
     // Join the words back into a sentence
     const modifiedSentence = words.join(' ');
@@ -142,3 +152,57 @@ function pulseElementOnce(element) {
         element.classList.remove('pulse-once');
     }, 600); // Adjust the duration of the animation (in milliseconds)
 }
+function checkEnter(event) {
+    if (event.keyCode === 13) {
+      // 13 is the key code for Enter
+      checkAnswer();
+    }
+  }
+
+function displayGameResults() {
+    // Count the correct answers
+    const correctAnswers = successHistory.filter(success => success).length;
+    const totalQuestions = pastAnswers.length;
+
+    // Create a div element to hold the results
+    const resultsDiv = document.createElement('div');
+
+    // Display the overall result
+    resultsDiv.innerHTML = `<p>You got ${correctAnswers}/${totalQuestions} correct:</p>`;
+
+    // Display each answer with corresponding emoji
+    for (let i = 0; i < totalQuestions; i++) {
+        const answer = pastAnswers[i];
+        const isSuccess = successHistory[i];
+        const resultElement = document.createElement('p');
+
+        // Display answer text and corresponding emoji based on success
+        resultElement.innerHTML = `${answer}: ${isSuccess ? '✔️ 💁‍♂️' : '❌🤦‍♀️'}`;
+
+        // Append the result element to the results div
+        resultsDiv.appendChild(resultElement);
+    }
+
+    // Create a "Try Again" button link
+    const tryAgainButton = document.createElement('a');
+    tryAgainButton.href = 'https://s-omas.github.io/wiki_triv/'; 
+    tryAgainButton.innerHTML = 'Try Again';
+
+    tryAgainButton.style.display = 'block';
+    tryAgainButton.style.padding = '10px';
+    tryAgainButton.style.marginTop = '20px';
+    tryAgainButton.style.backgroundColor = '#4CAF50';
+    tryAgainButton.style.color = 'white';
+    tryAgainButton.style.textDecoration = 'none';
+    tryAgainButton.style.border = 'none';
+    tryAgainButton.style.borderRadius = '5px';
+    tryAgainButton.style.cursor = 'pointer';
+
+    // Append the "Try Again" button to the results div
+    resultsDiv.appendChild(tryAgainButton);
+
+    // Return the results div
+    return resultsDiv;
+}
+
+  
