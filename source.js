@@ -81,6 +81,10 @@ function checkAnswer() {
         document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) + 1
         document.getElementById("image_holder").innerHTML = '';
         fetchRandomArticle()
+        setTimeout(() => {
+            pulseElementOnce(document.getElementById('score'))
+          }, 750);
+        
     } else {
         document.getElementById('answer').value = ''
         //document.getElementById('score').textContent = parseInt(document.getElementById('score').textContent) - 1
@@ -112,7 +116,7 @@ function replaceNthWordWithUnderscore(sentence, n) {
     }
 
     // Replace the nth word with an underscore
-    words[n - 1] = '_____';
+    words[n - 1] = '<input type="text" id="answer" placeholder="What word is missing?">';
 
     // Join the words back into a sentence
     const modifiedSentence = words.join(' ');
@@ -128,4 +132,13 @@ function shakeElement(element) {
       element.style.animation = '';
     }, 750);
   }
-  
+
+function pulseElementOnce(element) {
+    // Add the pulse class to trigger the animation
+    element.classList.add('pulse-once');
+
+    // Remove the class after the animation ends
+    setTimeout(() => {
+        element.classList.remove('pulse-once');
+    }, 600); // Adjust the duration of the animation (in milliseconds)
+}

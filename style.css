@@ -74,7 +74,8 @@ input {
     margin: 0 8px; /* Space between the book icon and gap */
     background-color: #fff; /* Background color of the gap */
   }
-  
+
+
 /* #image_holder {
     max-height: 150px;
 } */
@@ -88,3 +89,27 @@ input {
     80% { transform: translateX(10px); }
     100% { transform: translateX(0); }
   }
+
+.pulse-element {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    /* Add any other styling you want for your element */
+}
+
+/* Animation for pulsing effect */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#logoim{
+    width: 60px;
+}
